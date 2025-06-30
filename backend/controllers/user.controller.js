@@ -177,7 +177,8 @@ export const login = async (req, res) => {
             expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days
             httpOnly: true,
             secure: process.env.NODE_ENV === "production", // true in production
-            sameSite: "strict" // CSRF protection
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Allow cross-site cookies in production
+            domain: process.env.NODE_ENV === "production" ? undefined : undefined // Let browser handle domain
         };
 
         res.cookie("token", token, cookieOptions);
@@ -234,7 +235,8 @@ export const logout = async (req,res)=>{
         res.clearCookie("token", {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict"
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+            domain: process.env.NODE_ENV === "production" ? undefined : undefined
         });
 
         return res.status(200).json({
