@@ -4,11 +4,12 @@ const sendEmail = async (email, token, subject, message) => {
     try {
         // 1. Create email transporter
         const transporter = nodemailer.createTransport({
-            host: process.env.MAILTRAP_HOST,
-            port: process.env.MAILTRAP_PORT,
+            service: process.env.MAIL_SERVICE,
+            host: process.env.MAIL_HOST,
+            port: process.env.MAIL_PORT,
             auth: {
-                user: process.env.MAILTRAP_USER,
-                pass: process.env.MAILTRAP_PASSWORD,
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASSWORD,
             },
         });
 
