@@ -25,8 +25,10 @@ app.use(cors({
 
 db()
 
+app.get("/", (req,res)=>{
+    res.send("namaste")
+})
 app.get("/health", (req, res)=>{
-
     res.send("health check")
 })
 
